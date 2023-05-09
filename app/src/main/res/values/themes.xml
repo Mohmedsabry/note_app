@@ -17,4 +17,5 @@
         <item name="android:statusBarColor">#918F8F</item>
         <item name="colorPrimary">#FF0016</item>
     </style>
+
 </resources>
