@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SearchView;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Adptar adptar;
-    Toolbar toolbar;
     Database database;
     Button all,Work,Life,Family,Entermant;
     FloatingActionButton btn;
@@ -42,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-       // toolbar = findViewById(R.id.toolbarformain);
+
         all = findViewById(R.id.btn_home);
         Work = findViewById(R.id.mod_btn_work);
         Entermant = findViewById(R.id.mod_btn_entermant);
         Family = findViewById(R.id.mod_btn_family);
         Life = findViewById(R.id.mod_btn_life);
         btn = findViewById(R.id.ft_btn);
-        //setSupportActionBar(toolbar);
+
 
         database = new Database(this);
         arrayList=new ArrayList<>();
@@ -120,6 +121,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_view,menu);
+
+        MenuItem item = menu.findItem(R.id.app_bar_switch);
+        item.setActionView(R.layout.use_switch);
+
+        final Switch sw = (Switch) menu.findItem(R.id.app_bar_switch).getActionView().findViewById(R.id.switch2);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                System.out.println(b);
+                if (b){
+                    startService(new Intent(getBaseContext(), MyService.class));
+                }else {
+                    stopService(new Intent(getBaseContext(), MyService.class));
+                }
+            }
+        });
+
         searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -145,11 +163,19 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("on destroy");
+        stopService(new Intent(getBaseContext(), MyService.class));
     }
 }

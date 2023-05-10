@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TakeNote</string>
+    <string name="app_name">note_app</string>
     <string name="btn_work">Work</string>
     <string name="btn_life">Life</string>
     <string name="btn_family">Family</string>
