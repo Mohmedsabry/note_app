@@ -14,6 +14,7 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
         mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.wegz_kan_nefsy_prod_dj_totti_8900607073804581713);
+        mediaPlayer.setLooping(true);
     }
 
     @Override

@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_view,menu);
 
-        MenuItem item = menu.findItem(R.id.app_bar_switch);
-        item.setActionView(R.layout.use_switch);
+//        MenuItem item = menu.findItem(R.id.app_bar_switch);
+//        item.setActionView(R.layout.use_switch);
 
         final Switch sw = (Switch) menu.findItem(R.id.app_bar_switch).getActionView().findViewById(R.id.switch2);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
