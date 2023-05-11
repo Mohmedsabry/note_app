@@ -37,6 +37,7 @@ public class Login extends AppCompatActivity {
                         if (i.getUsername().equals(username)&&i.getPassword().equals(password)){
                             System.out.println("ok");
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
+                            break;
                         }
                     }
                 }else {
