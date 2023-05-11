@@ -17,7 +17,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_register);//
         db = new UserDB(this);
         binding.RegisterAdd.setOnClickListener(new View.OnClickListener() {
             @Override

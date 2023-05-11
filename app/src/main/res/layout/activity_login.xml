@@ -30,13 +30,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_7sdp"
         android:textColorHint="#0B0B0B"
-        app:hintTextColor="#090909">
+        app:hintTextColor="#090909"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
+            android:password="true"
             android:textColor="#050505"
             android:textColorHint="#050505"
             android:textSize="@dimen/_19ssp" />
