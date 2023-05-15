@@ -21,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:orientation="horizontal"
             android:padding="3dp">
 
             <Button
@@ -32,11 +31,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn"
                 android:backgroundTint="#272626"
-                android:contentDescription="@string/app_name"
                 android:foreground="@drawable/home"
                 android:foregroundGravity="center"
                 android:foregroundTint="#F3EEEE"
-                app:iconSize="30dp" />
+                app:iconSize="30dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <Button
                 android:id="@+id/mod_btn_work"

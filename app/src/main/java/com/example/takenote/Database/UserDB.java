@@ -15,7 +15,12 @@ public class UserDB extends SQLiteAssetHelper {
     private static final String TABLE ="user";
     private static final String USERNAME ="username";
     private static final String PASSWORD ="password";
-    private static final int VERSION =1;
+    private static final int VERSION = 1 ;
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        super.onUpgrade(db, oldVersion, newVersion);
+    }
 
     public UserDB(Context context) {
         super(context, NAME, null, null, VERSION);
@@ -30,11 +35,12 @@ public class UserDB extends SQLiteAssetHelper {
     }
     @SuppressLint("Range")
     public ArrayList<User> getAll(){
-        ArrayList<User>arrayList=new ArrayList<>();
+        ArrayList<User>arrayList = new ArrayList<>();
         SQLiteDatabase database = getReadableDatabase();
         Cursor c = database.rawQuery("select * from "+TABLE+"",null);
         if (c.moveToFirst()){
             do {
+
                 arrayList.add(new User(c.getInt(c.getColumnIndex("id")),c.getString(c.getColumnIndex(USERNAME)),c.getString(c.getColumnIndex(PASSWORD))));
             }while (c.moveToNext());
         }

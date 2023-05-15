@@ -40,7 +40,7 @@ public class NotesShow extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if ( getArguments()!= null) {
             adptar = (Adptar) getArguments().getSerializable(ARG_PARAM1);
         }
     }

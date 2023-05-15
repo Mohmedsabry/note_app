@@ -59,11 +59,11 @@ public class AddNote extends AppCompatActivity {
                 if(item.getItemId()==R.id.menu_add){
                     if(!Title.getText().toString().equals("")&&!tv.getText().toString().equals("")&&!res.getText().equals("")){
                         Log.d("TAG", new Date().toString());
-                        System.out.println("it is insert "+database.Insert(new Note(Title.getText().toString(),res.getText().toString(),new Date().toString(),tv.getText().toString())));
+                        System.out.println("it is insert "+database.Insert(new Note(Title.getText().toString(),Login.USERNAME,res.getText().toString(),new Date().toString(),tv.getText().toString())));
                         Toast.makeText(getBaseContext(), "Added", Toast.LENGTH_SHORT).show();
                         finish();
                     }else {
-                        System.out.println("it is fuck");
+                        System.out.println("it");
                     }
                 }
                 return true;

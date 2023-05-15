@@ -4,7 +4,34 @@ import java.io.Serializable;
 
 public class Note implements Serializable {
     private String title;
+    private String Username;
     private String type;
+
+    public Note(String title, String username, String type, String history, String decscrption, int id) {
+        this.title = title;
+        Username = username;
+        this.type = type;
+        this.history = history;
+        this.decscrption = decscrption;
+        Id = id;
+    }
+
+    public Note(String title, String username, String type, String history, String decscrption) {
+        this.title = title;
+        Username = username;
+        this.type = type;
+        this.history = history;
+        this.decscrption = decscrption;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
     private String history;
     private String decscrption;
     private  int Id;

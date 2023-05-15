@@ -30,6 +30,7 @@ public class Database extends SQLiteAssetHelper {
 
 
     private String History = "History";
+    private String USERNAME = "username";
 
 
     public Database(@Nullable Context context) {
@@ -48,20 +49,21 @@ public class Database extends SQLiteAssetHelper {
         cv.put(Title, note.getTitle());
         cv.put(Desc, note.getDecscrption());
         cv.put(History, note.getHistory());
-        return sqLiteDatabase.insert(Tabel, null, cv);
+        cv.put(USERNAME, note.getUsername());
+        return sqLiteDatabase.insert(Tabel, null, cv);//row
     }
 
+
     @SuppressLint("Range")
-    public ArrayList<Note> getAll() {
+    public ArrayList<Note> getAll(String username) {
         ArrayList<Note> arrayList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * from " + Tabel + "", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * from " + Tabel + " where "+USERNAME+"=?", new String[]{username});
         if (cursor.moveToFirst()) {
             do {
-                arrayList.add(new Note(cursor.getString(cursor.getColumnIndex(Title)),
-                        cursor.getString(cursor.getColumnIndex(Type))
-                        , cursor.getString(cursor.getColumnIndex(History))
-                        , cursor.getString(cursor.getColumnIndex(Desc)),cursor.getInt(cursor.getColumnIndex(Id))));
+                arrayList.add(new Note(cursor.getString(cursor.getColumnIndex(Title)),cursor.getString(cursor.getColumnIndex(USERNAME)),
+                                       cursor.getString(cursor.getColumnIndex(Type)),cursor.getString(cursor.getColumnIndex(History)),
+                                    cursor.getString(cursor.getColumnIndex(Desc)),cursor.getInt(cursor.getColumnIndex(Id))));
             } while (cursor.moveToNext());
         }
         System.out.println("the all data is " + arrayList.size());
@@ -69,9 +71,9 @@ public class Database extends SQLiteAssetHelper {
     }
 
     @SuppressLint("Range")
-    public ArrayList<Note> getType(String type) {
+    public ArrayList<Note> getType(String type,String username) {
         SQLiteDatabase database = getReadableDatabase();
-        Cursor c = database.rawQuery("select * from " + Tabel + " where " + Type + " like ?", new String[]{type});
+        Cursor c = database.rawQuery("select * from " + Tabel + " where " + Type + " like ? and "+USERNAME+"=?", new String[]{type,username});
         ArrayList<Note> arrayList = new ArrayList();
         if (c.moveToFirst()) {
             do {
@@ -86,9 +88,9 @@ public class Database extends SQLiteAssetHelper {
     }
 
     @SuppressLint("Range")
-    public ArrayList<Note> SearchByTitle(String word) {
+    public ArrayList<Note> SearchByTitle(String word,String username) {
         SQLiteDatabase database = getReadableDatabase();
-        Cursor c = database.rawQuery("select * from " + Tabel + " where " + Title + " like ?", new String[]{word+"%"});
+        Cursor c = database.rawQuery("select * from " + Tabel + " where " + Title + " like ? and "+USERNAME+"=?", new String[]{word+"%",username});
         ArrayList<Note> arrayList = new ArrayList<>();
         if (c.moveToFirst()) {
             do {
@@ -102,10 +104,10 @@ public class Database extends SQLiteAssetHelper {
     }
 
     @SuppressLint("Range")
-   public Note SearchById(int id){
+   public Note SearchById(int id,String username){
         Note note=new Note();
         SQLiteDatabase database = getReadableDatabase();
-        Cursor c = database.rawQuery("select * from "+Tabel+" where "+Id+" = "+id+" ",null);
+        Cursor c = database.rawQuery("select * from "+Tabel+" where "+Id+" = "+id+" and "+USERNAME+"=? ",new String[]{username});
         if (c.moveToFirst()){
             do {
                 note = new Note(c.getString(c.getColumnIndex(Title)),c.getString(c.getColumnIndex(Type)),
@@ -127,6 +129,7 @@ public class Database extends SQLiteAssetHelper {
         cv.put(Desc, note.getDecscrption());
         note.setHistory(new Date().toString());
         cv.put(History, note.getHistory());
+        cv.put(USERNAME, note.getUsername());
         return sqLiteDatabase.update(Tabel,cv,""+Id+" = "+note.getId()+"",null);
     }
 }

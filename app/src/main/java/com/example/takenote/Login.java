@@ -17,11 +17,12 @@ public class Login extends AppCompatActivity {
     ActivityLoginBinding binding;
     ArrayList<User>arrayList;
     UserDB db;
+    public static String USERNAME;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(binding.getRoot());//R.l.login
 
         arrayList= new ArrayList<>();
         db=new UserDB(this);
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity {
                     for (User i:arrayList){
                         if (i.getUsername().equals(username)&&i.getPassword().equals(password)){
                             System.out.println("ok");
+                            USERNAME=username;
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                             break;
                         }

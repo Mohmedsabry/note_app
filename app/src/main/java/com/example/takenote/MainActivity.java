@@ -53,27 +53,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         database = new Database(this);
-        arrayList=new ArrayList<>();
-        arrayList = database.getAll();
+        arrayList= new ArrayList<>();
+        arrayList = database.getAll(Login.USERNAME);
 
         all.setOnClickListener(view -> {
-            arrayList = database.getAll();
+            arrayList = database.getAll(Login.USERNAME);
             adptar.setArrayList(arrayList);
         });
         Work.setOnClickListener(view -> {
-            arrayList = database.getType("work");
+            arrayList = database.getType("work",Login.USERNAME);
             adptar.setArrayList(arrayList);
         });
         Life.setOnClickListener(view -> {
-            arrayList=database.getType("life");
+            arrayList=database.getType("life",Login.USERNAME);
             adptar.setArrayList(arrayList);
         });
         Entermant.setOnClickListener(view -> {
-            arrayList=database.getType("entermant");
+            arrayList=database.getType("entermant",Login.USERNAME);
             adptar.setArrayList(arrayList);
         });
         Family.setOnClickListener(x->{
-            arrayList=database.getType("family");
+            arrayList=database.getType("family",Login.USERNAME);
             adptar.setArrayList(arrayList);
         });
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void OnObjectClick(int id) {
                 Note n=new Note();
-                n=database.SearchById(id);
+                n=database.SearchById(id,Login.USERNAME);
                 Log.d("id",id+"");
                 Log.d("note",n.toString());
                 Intent intent = new Intent(getBaseContext(), EditNote.class);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        arrayList=database.getAll();
+        arrayList=database.getAll(Login.USERNAME);
         adptar.setArrayList(arrayList);
         System.out.println(arrayList.size()+" it is back");
         for (int i=0;i<arrayList.size();i++){
@@ -121,10 +121,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_view,menu);
-
-//        MenuItem item = menu.findItem(R.id.app_bar_switch);
-//        item.setActionView(R.layout.use_switch);
-
         final Switch sw = (Switch) menu.findItem(R.id.app_bar_switch).getActionView().findViewById(R.id.switch2);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -143,14 +139,14 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                arrayList=database.SearchByTitle(s);
+                arrayList=database.SearchByTitle(s,Login.USERNAME);
                 adptar.setArrayList(arrayList);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                arrayList = database.SearchByTitle(s);
+                arrayList = database.SearchByTitle(s,Login.USERNAME);
                 adptar.setArrayList(arrayList);
                 return false;
             }
@@ -158,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                arrayList=database.getAll();
+                arrayList=database.getAll(Login.USERNAME);
                 adptar.setArrayList(arrayList);
                 return false;
             }
@@ -169,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         return true;
     }
 
